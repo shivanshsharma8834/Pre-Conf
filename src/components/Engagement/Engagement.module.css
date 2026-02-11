@@ -1,0 +1,151 @@
+.engagement {
+    padding: var(--space-24) var(--space-6);
+    background: var(--color-bg-primary);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+    align-items: center;
+}
+
+.content {
+    padding-right: var(--space-4);
+}
+
+.title {
+    font-size: var(--text-5xl);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: var(--space-6);
+    color: var(--color-text-primary);
+}
+
+.highlight {
+    color: var(--color-accent-coral);
+}
+
+.description {
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-8);
+}
+
+.ctaBtn {
+    background: var(--color-text-primary);
+    color: #fff;
+    padding: var(--space-4) var(--space-8);
+    border-radius: var(--radius-full);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    transition: all var(--transition-fast);
+}
+
+.ctaBtn:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-xl);
+}
+
+.illustration {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.illustrationCard {
+    background: var(--color-bg-pink);
+    padding: var(--space-8);
+    border-radius: var(--radius-xl);
+    position: relative;
+    box-shadow: var(--shadow-lg);
+}
+
+.liveTag {
+    position: absolute;
+    top: var(--space-4);
+    left: var(--space-4);
+    background: var(--color-accent-coral);
+    color: #fff;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    z-index: 10;
+}
+
+.engagementImage {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+}
+
+.chat1 {
+    position: absolute;
+    top: var(--space-6);
+    right: -40px;
+    background: #fff;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-xl);
+    font-size: var(--text-sm);
+    border: 2px solid var(--color-text-primary);
+    max-width: 180px;
+}
+
+.chat2 {
+    position: absolute;
+    bottom: var(--space-12);
+    right: -50px;
+    background: #fff;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-xl);
+    font-size: var(--text-sm);
+    border: 2px solid var(--color-text-primary);
+    max-width: 200px;
+}
+
+.chat3 {
+    position: absolute;
+    bottom: var(--space-4);
+    left: -40px;
+    background: #fff;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-xl);
+    font-size: var(--text-sm);
+    border: 2px solid var(--color-text-primary);
+    max-width: 180px;
+}
+
+@media (max-width: 768px) {
+    .engagement {
+        padding: var(--space-16) var(--space-4);
+    }
+
+    .container {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+    }
+
+    .content {
+        padding-right: 0;
+    }
+
+    .title {
+        font-size: var(--text-3xl);
+    }
+
+    .chat1,
+    .chat2,
+    .chat3 {
+        position: static;
+        margin-top: var(--space-3);
+        max-width: 100%;
+    }
+}
