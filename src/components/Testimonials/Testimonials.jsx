@@ -2,73 +2,68 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import styles from './Testimonials.module.css';
 
-const testimonials = [
-  {
-    quote: '"This felt different."',
-    text: 'Finally, a conference where I could be myself and share real experiences.',
-    name: 'Sarah Chen',
-    role: 'Product Designer',
-    color: 'var(--color-bg-peach)',
-    image: '/Open Peeps - Bust.png',
-  },
-  {
-    quote: '"I finally felt heard."',
-    text: 'The conversations went deep. It wasn\'t surface-level networking.',
-    name: 'Maya Patel',
-    role: 'Software Engineer',
-    color: 'var(--color-bg-sage)',
-    image: '/Open Peeps - Bust (1).png',
-  },
-  {
-    quote: '"Not a conference. A community."',
-    text: 'I left with friends, collaborators, and a renewed sense of purpose.',
-    name: 'Jessica Williams',
-    role: 'Founder',
-    color: 'var(--color-bg-mint)',
-    image: '/Open Peeps - Bust (2).png',
-  },
-  {
-    quote: '"Conversations that matter."',
-    text: 'Real talk about the challenges we face and how we\'re overcoming them.',
-    name: 'Aisha Mohammed',
-    role: 'Creative Director',
-    color: 'var(--color-bg-lavender)',
-    image: '/Open Peeps - Bust (3).png',
-  },
+// Scrolling avatars (left and right sides)
+const scrollingAvatars = [
+  { size: 'medium', image: '/Screenshot 2026-02-11 182005.png' },
+  { size: 'medium', image: '/Screenshot 2026-02-11 182015.png' },
+  { size: 'medium', image: '/Screenshot 2026-02-11 182024.png' },
+  { size: 'medium', image: '/Screenshot 2026-02-11 182034.png' },
+  { size: 'medium', image: '/Screenshot 2026-02-11 182015.png' },
+  { size: 'medium', image: '/Screenshot 2026-02-11 182005.png' },
 ];
 
 function Testimonials() {
   return (
     <section className={styles.testimonials}>
       <div className={styles.container}>
-        <div className={styles.grid}>
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={index}
-              className={styles.card}
-              style={{ background: testimonial.color }}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ scale: 1.02 }}
+        <div className={styles.header}>
+          <h2 className={styles.title}>Community Voices</h2>
+        </div>
+        
+        <div className={styles.scrollContainer}>
+          {/* Infinite scrolling avatars */}
+          <div className={styles.scrollWrapper}>
+            <motion.div 
+              className={styles.scrollTrack}
+              animate={{ x: [-1400, 0] }}
+              transition={{
+                duration: 30,
+                repeat: Infinity,
+                ease: "linear",
+              }}
             >
-              <h3 className={styles.quote}>{testimonial.quote}</h3>
-              <p className={styles.text}>{testimonial.text}</p>
-              <div className={styles.author}>
-                <div className={styles.avatar}>
+              {/* Duplicate the array for seamless infinite scroll */}
+              {[...scrollingAvatars, ...scrollingAvatars, ...scrollingAvatars].map((card, index) => (
+                <motion.div
+                  key={index}
+                  className={`${styles.avatarCard} ${styles[card.size]}`}
+                  animate={{ rotateY: [0, 360] }}
+                  transition={{
+                    duration: 5,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                >
                   <img 
-                    src={testimonial.image} 
-                    alt={testimonial.name}
+                    src={card.image} 
+                    alt={`Avatar ${index + 1}`}
+                    className={styles.avatarImage}
                   />
-                </div>
-                <div>
-                  <div className={styles.name}>{testimonial.name}</div>
-                  <div className={styles.role}>{testimonial.role}</div>
-                </div>
-              </div>
+                </motion.div>
+              ))}
             </motion.div>
-          ))}
+          </div>
+
+          {/* Fixed center huge card */}
+          <div className={styles.centerCardContainer}>
+            <div className={`${styles.avatarCard} ${styles.huge}`}>
+              <img 
+                src="/Screenshot 2026-02-11 200422.png" 
+                alt="Featured Avatar"
+                className={styles.avatarImage}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>

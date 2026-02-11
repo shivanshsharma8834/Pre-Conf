@@ -23,7 +23,7 @@ function WhoItsFor() {
         
         <div className={styles.illustration}>
           <img 
-            src="/Screenshot 2026-02-10 135223.png" 
+            src="/4.png" 
             alt="Diverse group of women" 
             className={styles.collageImage}
           />

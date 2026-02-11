@@ -1,72 +1,149 @@
 .testimonials {
-    padding: var(--space-24) var(--space-6);
+    padding: var(--space-24) 0;
     background: var(--color-bg-primary);
+    overflow: hidden;
+    position: relative;
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 100%;
+    margin: 0;
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: var(--space-6);
+.header {
+    text-align: center;
+    margin-bottom: var(--space-16);
 }
 
-.card {
-    padding: var(--space-8);
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-md);
-    transition: all var(--transition-base);
-}
-
-.quote {
-    font-size: var(--text-3xl);
+.title {
+    font-size: var(--text-5xl);
     font-weight: 700;
-    margin-bottom: var(--space-4);
     color: var(--color-text-primary);
     font-family: var(--font-heading);
-    line-height: 1.2;
 }
 
-.text {
-    font-size: var(--text-base);
-    color: var(--color-text-secondary);
-    margin-bottom: var(--space-6);
-    line-height: 1.6;
-}
-
-.author {
+.scrollContainer {
+    position: relative;
+    height: 400px;
     display: flex;
     align-items: center;
-    gap: var(--space-3);
+    justify-content: center;
+    background: linear-gradient(135deg,
+            rgba(10, 10, 10, 0.95) 0%,
+            rgba(20, 20, 20, 0.9) 25%,
+            rgba(15, 15, 15, 0.92) 50%,
+            rgba(25, 25, 25, 0.88) 75%,
+            rgba(10, 10, 10, 0.95) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow:
+        0 8px 32px 0 rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.05),
+        inset 0 -1px 0 0 rgba(0, 0, 0, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    overflow: hidden;
 }
 
-.avatar {
-    width: 50px;
-    height: 50px;
+.scrollWrapper {
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.scrollTrack {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    position: relative;
+}
+
+.centerCardContainer {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatarCard {
     border-radius: 50%;
     overflow: hidden;
-    background: var(--color-text-primary);
+    box-shadow: var(--shadow-xl);
+    transition: transform 0.3s ease;
+    position: relative;
     flex-shrink: 0;
 }
 
-.avatar img {
+/* Size variations */
+.small {
+    width: 120px;
+    height: 120px;
+}
+
+.medium {
+    width: 180px;
+    height: 180px;
+}
+
+.large {
+    width: 240px;
+    height: 240px;
+}
+
+.huge {
+    width: 350px;
+    height: 350px;
+    background: #1a1a1a;
+}
+
+.avatarImage {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
+    backface-visibility: hidden;
 }
 
-.name {
-    font-weight: 600;
-    color: var(--color-text-primary);
-    font-size: var(--text-base);
+.placeholderCard {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.role {
-    font-size: var(--text-sm);
-    color: var(--color-text-secondary);
+/* Responsive design */
+@media (max-width: 1024px) {
+    .scrollContainer {
+        height: 320px;
+    }
+
+    .scrollTrack {
+        gap: var(--space-4);
+    }
+
+    .small {
+        width: 100px;
+        height: 100px;
+    }
+
+    .medium {
+        width: 150px;
+        height: 150px;
+    }
+
+    .large {
+        width: 200px;
+        height: 200px;
+    }
+
+    .huge {
+        width: 280px;
+        height: 280px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -74,7 +151,61 @@
         padding: var(--space-16) var(--space-4);
     }
 
-    .grid {
-        grid-template-columns: 1fr;
+    .title {
+        font-size: var(--text-4xl);
+    }
+
+    .scrollContainer {
+        height: 260px;
+    }
+
+    .scrollTrack {
+        gap: var(--space-3);
+    }
+
+    .small {
+        width: 80px;
+        height: 80px;
+    }
+
+    .medium {
+        width: 120px;
+        height: 120px;
+    }
+
+    .large {
+        width: 150px;
+        height: 150px;
+    }
+
+    .huge {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .scrollContainer {
+        height: 220px;
+    }
+
+    .small {
+        width: 60px;
+        height: 60px;
+    }
+
+    .medium {
+        width: 90px;
+        height: 90px;
+    }
+
+    .large {
+        width: 120px;
+        height: 120px;
+    }
+
+    .huge {
+        width: 160px;
+        height: 160px;
     }
 }

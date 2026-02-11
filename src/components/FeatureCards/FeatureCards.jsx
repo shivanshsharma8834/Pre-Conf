@@ -4,24 +4,24 @@ import styles from './FeatureCards.module.css';
 
 const features = [
   {
-    title: 'Conversations over presentations',
-    description: 'Spaces designed for dialogue, not monologues.',
+    title: 'Talent Night',
+    description: 'Showcase your creativity through singing, guitar, poetry, stand-up comedy, and more.',
   },
   {
-    title: 'Community-first design',
-    description: 'Built intentionally to feel inclusive, welcoming, and human.',
+    title: 'Game Zone',
+    description: 'Fun interactive sessions with Scribble, Guess the Meme, and other exciting games.',
   },
   {
-    title: 'Ideas at every stage',
-    description: 'From first-time learners to seasoned operators.',
+    title: 'Giveaways',
+    description: 'Win amazing swags, T-shirts, merchandise, and exclusive collectibles.',
   },
   {
-    title: 'Offline energy, online impact',
-    description: 'What starts here travels far beyond the room.',
+    title: 'Speakers',
+    description: 'Industry experts from Web2 to Web3 sharing insights, experiences, and visions for the future.',
   },
   {
-    title: 'No hierarchy, no gatekeeping',
-    description: 'Everyone is here to contribute, not compete.',
+    title: 'Treats',
+    description: 'Enjoy delicious treats including ice creams, snacks, and more throughout the event.',
   },
 ];
 

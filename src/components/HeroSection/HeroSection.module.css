@@ -188,63 +188,98 @@
 
 /* CTA Section Below Banner */
 .ctaSection {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
-    text-align: left;
-}
-
-.subheading {
-    font-size: var(--text-2xl);
-    font-weight: 600;
-    margin-bottom: var(--space-6);
-    color: var(--color-text-secondary);
-    font-family: var(--font-heading);
+    text-align: center;
 }
 
 .description {
     font-size: var(--text-lg);
-    line-height: 1.7;
+    line-height: 1.8;
     color: var(--color-text-secondary);
-    margin-bottom: var(--space-8);
+    margin-bottom: var(--space-12);
+    text-align: center;
 }
 
-.ctas {
-    display: flex;
-    gap: var(--space-4);
-    flex-wrap: wrap;
+/* Numbers Grid */
+.numbersGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-8);
+    margin-bottom: var(--space-12);
 }
 
-.primaryCta {
-    background: var(--color-text-primary);
-    color: #fff;
-    padding: var(--space-4) var(--space-8);
-    border-radius: var(--radius-full);
-    font-size: var(--text-lg);
+.numberItem {
+    padding: var(--space-6);
+    transition: transform var(--transition-fast);
+}
+
+.numberItem:hover {
+    transform: translateY(-5px);
+}
+
+.number {
+    font-size: var(--text-7xl);
+    font-weight: 700;
+    font-family: var(--font-heading);
+    line-height: 1;
+    margin-bottom: var(--space-3);
+    background: linear-gradient(135deg,
+            #667eea 0%,
+            #764ba2 50%,
+            #f093fb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+.numberLabel {
+    font-size: var(--text-sm);
     font-weight: 600;
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-.primaryCta:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-xl);
-}
-
-.secondaryCta {
-    background: transparent;
-    color: var(--color-text-primary);
-    padding: var(--space-4) var(--space-8);
-    border: 2px solid var(--color-text-primary);
-    border-radius: var(--radius-full);
-    font-size: var(--text-lg);
-    font-weight: 600;
-    transition: all var(--transition-fast);
-}
-
-.secondaryCta:hover {
-    background: var(--color-text-primary);
+.getTicketsBtn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #fff;
-    transform: translateY(-3px);
+    padding: var(--space-5) var(--space-12);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
+
+.getTicketsBtn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.3),
+            transparent);
+    transition: left 0.5s ease;
+}
+
+.getTicketsBtn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+}
+
+.getTicketsBtn:hover::before {
+    left: 100%;
+}
+
 
 @media (max-width: 768px) {
     .hero {
@@ -288,21 +323,26 @@
         justify-content: center;
     }
 
-    .subheading {
-        font-size: var(--text-xl);
-    }
-
     .description {
         font-size: var(--text-base);
+        margin-bottom: var(--space-8);
     }
 
-    .ctas {
-        flex-direction: column;
+    .numbersGrid {
+        grid-template-columns: 1fr;
+        gap: var(--space-6);
     }
 
-    .primaryCta,
-    .secondaryCta {
+    .number {
+        font-size: var(--text-5xl);
+    }
+
+    .numberLabel {
+        font-size: var(--text-xs);
+    }
+
+    .getTicketsBtn {
         width: 100%;
-        text-align: center;
+        padding: var(--space-4) var(--space-8);
     }
 }

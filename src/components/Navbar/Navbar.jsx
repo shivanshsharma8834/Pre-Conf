@@ -3,6 +3,7 @@ import styles from './Navbar.module.css';
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [ambassadorDropdown, setAmbassadorDropdown] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,7 +23,23 @@ function Navbar() {
           <a href="#experience">Experience</a>
           <a href="#speakers">Speakers</a>
           <a href="#events">Events</a>
-          <a href="#community">Community</a>
+          
+          {/* Ambassador with dropdown */}
+          <div 
+            className={styles.dropdown}
+            onMouseEnter={() => setAmbassadorDropdown(true)}
+            onMouseLeave={() => setAmbassadorDropdown(false)}
+          >
+            <a href="#ambassador" className={styles.dropdownToggle}>
+              Ambassador
+              <span className={styles.dropdownIcon}>▼</span>
+            </a>
+            {ambassadorDropdown && (
+              <div className={styles.dropdownMenu}>
+                <a href="#leaderboard">Leaderboard</a>
+              </div>
+            )}
+          </div>
         </div>
         
         <button className={styles.ctaButton}>Get Tickets</button>

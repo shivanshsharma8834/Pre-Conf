@@ -34,7 +34,12 @@ function UpcomingEvents() {
           </h2>
           
           <div className={styles.headerActions}>
-            <button className={styles.viewAllBtn}>👁 View all</button>
+            <button 
+              className={styles.viewAllBtn}
+              onClick={() => window.location.href = '/events.html'}
+            >
+              👁 View All Events
+            </button>
             <div className={styles.nav}>
               <button className={styles.navBtn}>←</button>
               <button className={styles.navBtn}>→</button>
@@ -59,7 +64,7 @@ function UpcomingEvents() {
               <div className={styles.speakerInfo}>
                 <div className={styles.speakerAvatar}>
                   <img 
-                    src="/Screenshot 2026-02-10 192021.png" 
+                    src="/Screenshot 2026-02-11 182005.png" 
                     alt={event.speaker}
                   />
                 </div>

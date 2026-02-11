@@ -63,6 +63,69 @@
     width: 100%;
 }
 
+.dropdown {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.dropdownToggle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.dropdownIcon {
+    font-size: 10px;
+    transition: transform var(--transition-fast);
+}
+
+.dropdown:hover .dropdownIcon {
+    transform: rotate(180deg);
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 12px;
+    background: var(--color-bg-primary);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: var(--space-2);
+    min-width: 160px;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdownMenu a {
+    display: block;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    transition: background var(--transition-fast);
+}
+
+.dropdownMenu a:hover {
+    background: var(--color-bg-secondary, rgba(0, 0, 0, 0.05));
+}
+
+.dropdownMenu a::after {
+    display: none;
+}
+
+
 .ctaButton {
     background: var(--color-text-primary);
     color: #fff;
