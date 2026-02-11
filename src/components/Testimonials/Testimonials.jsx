@@ -9,6 +9,7 @@ const testimonials = [
     name: 'Sarah Chen',
     role: 'Product Designer',
     color: 'var(--color-bg-peach)',
+    image: '/Open Peeps - Bust.png',
   },
   {
     quote: '"I finally felt heard."',
@@ -16,6 +17,7 @@ const testimonials = [
     name: 'Maya Patel',
     role: 'Software Engineer',
     color: 'var(--color-bg-sage)',
+    image: '/Open Peeps - Bust (1).png',
   },
   {
     quote: '"Not a conference. A community."',
@@ -23,6 +25,7 @@ const testimonials = [
     name: 'Jessica Williams',
     role: 'Founder',
     color: 'var(--color-bg-mint)',
+    image: '/Open Peeps - Bust (2).png',
   },
   {
     quote: '"Conversations that matter."',
@@ -30,6 +33,7 @@ const testimonials = [
     name: 'Aisha Mohammed',
     role: 'Creative Director',
     color: 'var(--color-bg-lavender)',
+    image: '/Open Peeps - Bust (3).png',
   },
 ];
 
@@ -54,7 +58,7 @@ function Testimonials() {
               <div className={styles.author}>
                 <div className={styles.avatar}>
                   <img 
-                    src={`/Screenshot 2026-02-10 192021.png`} 
+                    src={testimonial.image} 
                     alt={testimonial.name}
                   />
                 </div>

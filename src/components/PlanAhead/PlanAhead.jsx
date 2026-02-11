@@ -14,7 +14,7 @@ function PlanAhead() {
         >
           <div className={styles.illustrationCard}>
             <img 
-              src="public/Screenshot 2026-02-10 192021.png" 
+              src="/Screenshot 2026-02-10 192021.png" 
               alt="Planning illustration"
               className={styles.planImage}
             />

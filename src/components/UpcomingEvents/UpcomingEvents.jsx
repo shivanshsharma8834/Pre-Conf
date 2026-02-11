@@ -59,7 +59,7 @@ function UpcomingEvents() {
               <div className={styles.speakerInfo}>
                 <div className={styles.speakerAvatar}>
                   <img 
-                    src="public/Screenshot 2026-02-10 192021.png" 
+                    src="/Screenshot 2026-02-10 192021.png" 
                     alt={event.speaker}
                   />
                 </div>
