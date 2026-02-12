@@ -34,6 +34,22 @@
     line-height: 1.7;
     margin-bottom: var(--space-8);
 }
+.speakerCopy {
+    margin-top: var(--space-4);
+    font-size: var(--text-base);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+}
+.applyBtn {
+    display: inline-block;
+    margin-top: var(--space-6);
+    background: #dfaa37;
+    color: var(--color-text-primary);
+    padding: var(--space-3) var(--space-6);
+    border-radius: var(--radius-full);
+    font-weight: 700;
+    text-decoration: none;
+}
 
 .ctaBtn {
     background: var(--color-text-primary);

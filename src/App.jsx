@@ -28,7 +28,7 @@ function HomePage() {
       <BecomeASpeaker />
       <PlanAhead />
       <Engagement />
-      <CTASection />
+      
     </>
   );
 }

@@ -85,6 +85,12 @@
     font-size: var(--text-base);
 }
 
+.partnerLogoImage {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+}
+
 .partnerLogo:hover {
     opacity: 1;
 }

@@ -21,10 +21,22 @@ function BecomeASpeaker() {
             Share your expertise, connect with an engaged community, 
             and contribute to meaningful conversations that matter.
           </p>
-          
-          <button className={styles.ctaBtn}>
-            ⚡ Get Started
-          </button>
+
+          <p className={styles.speakerCopy}>
+            We’re looking for the kind of people who light up when they talk about the creator economy; the builders,
+            the dreamers, the slightly-obsessed-in-the-best-way humans who wake up thinking, “How can we make this
+            easier, smarter, better?” If your work helps creators build smarter, move faster, earn better, and feel a
+            little more powerful while doing it, come share your heart with us.
+          </p>
+
+          <a
+            href="https://luma.com/pf5o58e3"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.applyBtn}
+          >
+            Apply to Speak
+          </a>
         </motion.div>
         
         <motion.div 

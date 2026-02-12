@@ -5,23 +5,27 @@ import styles from './FeatureCards.module.css';
 const features = [
   {
     title: 'Talent Night',
-    description: 'Showcase your creativity through singing, guitar, poetry, stand-up comedy, and more.',
+    description: 'Open stage of expression live music, sharp tech roasts, storytelling, stand-up, visual art and unexpected performances.',
   },
   {
     title: 'Game Zone',
-    description: 'Fun interactive sessions with Scribble, Guess the Meme, and other exciting games.',
+    description: 'Playful competition, from scribble battles to meme wars and other exciting games.',
   },
   {
     title: 'Giveaways',
-    description: 'Win amazing swags, T-shirts, merchandise, and exclusive collectibles.',
+    description: 'Timed reward drops, from exclusive physical merch to digital collectibles. Stay engaged, because every moment could unlock something.',
   },
   {
-    title: 'Speakers',
-    description: 'Industry experts from Web2 to Web3 sharing insights, experiences, and visions for the future.',
+    title: 'Speaker Sessions',
+    description: 'Voices across tech, culture, and the creator economy share practical insights on AI, Web3, and building sustainable digital influence & content Monetization across platforms.',
   },
   {
-    title: 'Treats',
-    description: 'Enjoy delicious treats including ice creams, snacks, and more throughout the event.',
+    title: 'Community Spotlight',
+    description: 'Selected regional communities take the stage to present their work, impact, and gated opportunities, opening doors for meaningful global collaboration.',
+  },
+  {
+    title: 'Happy Treats',
+    description: 'A sponsored reward initiative recognizing 200–300 of the most active participants, curated benefits unlocked through genuine contribution and engagement.',
   },
 ];
 

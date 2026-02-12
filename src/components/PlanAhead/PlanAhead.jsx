@@ -35,18 +35,27 @@ function PlanAhead() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className={styles.title}>
-            PLAN AHEAD<br />
-            WITH <span className={styles.highlight}>SCHEDULING</span>
-          </h2>
+          <h2 className={styles.title}>Don’t just attend. Come participate with us.</h2>
           
           <p className={styles.description}>
-            Stay organized with calendar integrations, automated reminders, 
-            and seamless event management tools designed for busy creators.
+            This isn’t the kind of space where you sit in a chair, clap politely, and leave with a tote bag.
+            This is the kind where you belong. Where you lean in. Where you try, try again.
           </p>
-          
+
+          <p className={styles.description}>
+            You could light up Talent Night, sing, roast, stand up, dance, art showcase, perform, surprise us.
+          </p>
+
+          <p className={styles.description}>
+            Become an Ambassador and carry GWY Pre-Conf into your city, your campus, your little corner of the world.
+          </p>
+
+          <p className={styles.description}>
+            Come Volunteer with us. Help us weave this global story across 150+ cities, alongside partners from 25+ countries.
+          </p>
+
           <button className={styles.ctaBtn}>
-            ⚡ Get Started
+            Participate
           </button>
         </motion.div>
       </div>

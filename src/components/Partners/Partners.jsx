@@ -54,28 +54,21 @@ const Partners = () => {
   }, []);
 
   const partners = [
-    { name: 'Devfolio', icon: '🔷' },
-    { name: 'GitHub', icon: '🐙' },
-    { name: 'Polygon', icon: '⬡' },
-    { name: 'Azure', icon: '☁️' },
-    { name: 'Filecoin', icon: '📁' },
-    { name: 'Sonaml.io', icon: '🔊' },
-    { name: 'Tezos', icon: '🔹' },
-    { name: 'Polkadot', icon: '⚪' },
-    { name: 'Arweave', icon: '📦' },
-    { name: 'Mintro', icon: '🎯' },
-    { name: 'Community', icon: '👥' },
-    { name: 'QuillAudits', icon: '🛡️' },
-    { name: 'Hive', icon: '🐝' },
-    { name: 'Socrates', icon: '💭' },
-    { name: 'Mentro', icon: '🎓' },
-    { name: 'Starlay', icon: '⭐' },
-    { name: 'FLOXUS', icon: '🌊' },
-    { name: 'Replit', icon: '💻' },
-    { name: 'Quickblox', icon: '⚡' },
-    { name: 'Reskill+', icon: '📚' },
-    { name: 'MongoDB', icon: '🍃' }
-  ];
+  
+  { name: "GitHub", logo: "https://cdn.simpleicons.org/github" },
+  { name: "MongoDB", logo: "https://cdn.simpleicons.org/mongodb" },
+  { name: "Microsoft Azure", logo: "https://cdn.simpleicons.org/microsoftazure" },
+  { name: "Polygon", logo: "https://cdn.simpleicons.org/polygon" },
+  { name: "Replit", logo: "https://cdn.simpleicons.org/replit" },
+  { name: "Tezos", logo: "https://cdn.simpleicons.org/tezos" },
+  { name: "Polkadot", logo: "https://cdn.simpleicons.org/polkadot" },
+  { name: "Arweave", logo: "https://cdn.simpleicons.org/arweave/000000" },
+  { name: "Filecoin", logo: "https://cdn.simpleicons.org/filecoin/000000" },
+  { name: "Devfolio", logo: "https://cdn.simpleicons.org/devfolio/000000" },
+  { name: "MongoDB", logo: "https://cdn.simpleicons.org/mongodb" }
+];
+
+
 
   const loopedPartners = [...partners, ...partners];
 
@@ -109,7 +102,11 @@ const Partners = () => {
           >
             {loopedPartners.map((partner, index) => (
               <div key={index} className={styles.partnerLogo}>
-                <span className={styles.partnerIcon}>{partner.icon}</span>
+                {partner.logo ? (
+                  <img src={partner.logo} alt={partner.name} className={styles.partnerLogoImage} />
+                ) : (
+                  <span className={styles.partnerIcon}>{partner.icon}</span>
+                )}
                 <span className={styles.partnerName}>{partner.name}</span>
               </div>
             ))}

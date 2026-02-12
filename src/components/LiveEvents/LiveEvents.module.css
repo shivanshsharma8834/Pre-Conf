@@ -145,6 +145,14 @@
     margin-bottom: var(--space-4);
 }
 
+.iconImage {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: var(--space-4);
+}
+
 .featureTitle {
     font-size: var(--text-2xl);
     font-weight: 700;

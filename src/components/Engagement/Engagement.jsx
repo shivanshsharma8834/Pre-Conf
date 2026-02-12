@@ -12,19 +12,19 @@ function Engagement() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className={styles.title}>
-            LEVEL UP<br />
-            YOUR <span className={styles.highlight}>ENGAGEMENT</span>
+          <h2 className={styles.title}>GWY
+            <br />
+            Pre-Conf
           </h2>
-          
+
           <p className={styles.description}>
-            Interactive features, live Q&A, real-time polls, and collaborative 
-            tools that transform passive attendance into active participation.
+            Attend the Global Pre-Conference to connect with creators and builders worldwide. There is NO charge to
+            attend, and seats are curated to ensure meaningful participation.
           </p>
-          
-          <button className={styles.ctaBtn}>
-            ⚡ Get Started
-          </button>
+
+          <a href="/ticket" className={styles.ctaBtn}>
+            Grab Your Ticket
+          </a>
         </motion.div>
         
         <motion.div 
