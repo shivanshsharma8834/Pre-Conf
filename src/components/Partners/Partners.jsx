@@ -55,24 +55,16 @@ const Partners = () => {
 
   const partners = [
   { name: "GitHub", logo: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" },
-  { name: "Microsoft", logo: "https://img.icons8.com/color/48/microsoft.png" },
-  { name: "Google", logo: "https://img.icons8.com/color/48/google-logo.png" },
-  { name: "MongoDB", logo: "https://img.icons8.com/color/48/mongodb.png" },
+  { name: "MongoDB", logo: "https://webassets.mongodb.com/_com_assets/cms/mongodb_logo1-76twgcu2dm.png" },
+  { name: "Microsoft Azure", logo: "https://swimburger.net/media/ppnn3pcl/azure.png" },
   { name: "Polygon", logo: "https://cryptologos.cc/logos/polygon-matic-logo.png" },
-  { name: "Ethereum", logo: "https://cryptologos.cc/logos/ethereum-eth-logo.png" },
-  { name: "Replit", logo: "https://img.icons8.com/color/48/replit.png" },
-  { name: "Meta", logo: "https://img.icons8.com/color/48/meta.png" },
-  { name: "Netflix", logo: "https://img.icons8.com/color/48/netflix.png" },
-  { name: "Spotify", logo: "https://img.icons8.com/color/48/spotify.png" },
-  { name: "AWS", logo: "https://img.icons8.com/color/48/amazon-web-services.png" },
-  { name: "Docker", logo: "https://img.icons8.com/color/48/docker.png" },
-  { name: "Vercel", logo: "https://assets.vercel.com/image/upload/v1662130559/nextjs/Icon_light_background.png" },
-  { name: "OpenAI", logo: "https://img.icons8.com/color/48/chatgpt.png" },
-  { name: "Tesla", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/tesla.svg" },
-  { name: "Apple", logo: "https://img.icons8.com/color/48/mac-os.png" }
+  { name: "Replit", logo: "https://replit.com/public/images/logo-small.png" },
+  { name: "Tezos", logo: "https://cryptologos.cc/logos/tezos-xtz-logo.png" },
+  { name: "Polkadot", logo: "https://cryptologos.cc/logos/polkadot-new-dot-logo.png" },
+  { name: "Arweave", logo: "https://cryptologos.cc/logos/arweave-ar-logo.png" },
+  { name: "Filecoin", logo: "https://cryptologos.cc/logos/filecoin-fil-logo.png" },
+  { name: "Devfolio", logo: "/devfolio.jpg" }
 ];
-
-
 
   const loopedPartners = [...partners, ...partners];
 
@@ -111,7 +103,9 @@ const Partners = () => {
                 ) : (
                   <span className={styles.partnerIcon}>{partner.icon}</span>
                 )}
-                <span className={styles.partnerName}>{partner.name}</span>
+                {partner.name !== "MongoDB" && (
+                  <span className={styles.partnerName}>{partner.name}</span>
+                )}
               </div>
             ))}
           </motion.div>
