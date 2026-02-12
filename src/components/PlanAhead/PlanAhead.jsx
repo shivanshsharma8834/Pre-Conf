@@ -23,7 +23,12 @@ function PlanAhead() {
               My topic for next week...
             </div>
             <div className={styles.reminder}>
-              <strong>🔔 Reminder</strong><br />
+              <strong>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{marginRight: '4px'}}>
+                  <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" fill="black"/>
+                </svg>
+                Reminder
+              </strong><br />
               You have 2 events coming up...
             </div>
           </div>

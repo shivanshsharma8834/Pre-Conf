@@ -21,7 +21,7 @@ function WhoItsFor() {
             something.” We welcome everyone, all genders, all backgrounds, all levels of experience. Beginner
             or seasoned. Loud or quietly brilliant. It doesn’t matter where you’re from or what you’ve built.
             <br /><br />
-            And if you’re even a little curious, maybe this is your sign. 💛
+            And if you’re even a little curious, maybe this is your sign. 
           </p>
         </motion.div>
         

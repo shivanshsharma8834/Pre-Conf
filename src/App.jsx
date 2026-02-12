@@ -23,10 +23,10 @@ function HomePage() {
       <FeatureCards />
       <Partners />
       <Testimonials />
+      <BecomeASpeaker />
+      <WhoItsFor />
       <LiveEvents />
       <UpcomingEvents />
-      <WhoItsFor />
-      <BecomeASpeaker />
       <PlanAhead />
       <Engagement />
       
