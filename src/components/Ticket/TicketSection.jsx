@@ -1,15 +1,26 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Upload, Download, Loader2, Linkedin, Instagram, Twitter, Check } from 'lucide-react';
 import { supabase } from '../../supabaseClient';
 import imageCompression from 'browser-image-compression';
 import './TicketSection.css'; 
 
+// --- CONFIGURATION ---
+
+// 1. Desktop / Standard Config (High Res)
 const TICKET_CONFIG = {
   avatar: { x: 64.6, y: 50.6, size: 101.1 },
-  seat: { x: 93.1, y: 23.1, w: 5.9, h: 17.8, rotation: -90.0 },
-  row: { x: 93.1, y: 48.1, w: 5.9, h: 17.8, rotation: -90.0 },
+  seat: { x: 93.1, y: 23.1, w: 5.9, h: 17.8, rotation: -90.0, fontSize: 2.2 },
+  row: { x: 93.1, y: 48.1, w: 5.9, h: 17.8, rotation: -90.0, fontSize: 2.2 },
   qr: { x: 88.6, y: 74.3, size: 25.3, rotation: 0.0 }
+};
+
+// 2. Mobile Config (Optimized for small screens based on your values)
+const MOBILE_TICKET_CONFIG = {
+  avatar: { x: 64.6, y: 50.6, size: 101.1 }, // Same as desktop
+  seat: { x: 92.8, y: 20.2, w: 4.5, h: 12, rotation: -90.0, fontSize: 0.8 }, // YOUR VALUES
+  row: { x: 93.4, y: 46.2, w: 6, h: 16.1, rotation: -90.0, fontSize: 0.8 },  // YOUR VALUES
+  qr: { x: 88.6, y: 74.3, size: 25.3, rotation: 0.0 } // Same as desktop
 };
 
 const SHARE_CAPTION = `I just said yes to
@@ -29,6 +40,9 @@ const TicketSection = () => {
   const [ticketData, setTicketData] = useState(null);
   const [copyFeedback, setCopyFeedback] = useState('');
   
+  // State to track screen size
+  const [isMobile, setIsMobile] = useState(false);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -41,6 +55,22 @@ const TicketSection = () => {
   });
 
   const canvasRef = useRef(null);
+
+  // Detect Mobile Screen on Mount & Resize
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 600);
+    };
+    
+    // Run once on mount
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Select the active config based on screen size
+  const activeConfig = isMobile ? MOBILE_TICKET_CONFIG : TICKET_CONFIG;
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -132,7 +162,6 @@ const TicketSection = () => {
     setError('');
 
     try {
-      // 1. Check if ticket exists
       const { data: existing } = await supabase
         .from('tickets')
         .select('id')
@@ -145,7 +174,6 @@ const TicketSection = () => {
         return;
       }
 
-      // 2. Handle Image Upload
       let avatarUrl = '';
       if (formData.image) {
         let fileToUpload = formData.image;
@@ -177,7 +205,6 @@ const TicketSection = () => {
         avatarUrl = publicUrlData.publicUrl;
       }
 
-      // 3. Generate Seat Details
       const row = Math.floor(Math.random() * 50) + 1;
       const seat = Math.floor(Math.random() * 100) + 1;
 
@@ -193,7 +220,6 @@ const TicketSection = () => {
         seat_number: seat.toString().padStart(2, '0')
       };
 
-      // 4. Insert Ticket (FIXED: Removed .single())
       const { data, error: insertError } = await supabase
         .from('tickets')
         .insert([newTicket])
@@ -201,8 +227,6 @@ const TicketSection = () => {
 
       if (insertError) throw insertError;
 
-      // 5. Handle Response (FIXED: Handle array or fallback)
-      // If RLS hides the return data, we use 'newTicket' so the UI still works
       const finalTicketData = (data && data.length > 0) ? data[0] : newTicket;
 
       setTicketData(finalTicketData);
@@ -244,6 +268,8 @@ const TicketSection = () => {
       }
 
       function drawAvatar(avatarImg) {
+        // NOTE: We always use TICKET_CONFIG (Desktop) for downloads 
+        // to ensure high resolution and correct aspect ratio on the saved image.
         const { x, y, size } = TICKET_CONFIG.avatar;
         const centerX = w * (x / 100);
         const centerY = h * (y / 100);
@@ -287,6 +313,7 @@ const TicketSection = () => {
           ctx.restore();
         };
 
+        // Always use TICKET_CONFIG for downloads
         drawBox(TICKET_CONFIG.seat, ticketData.seat_number);
         drawBox(TICKET_CONFIG.row, ticketData.row_number);
 
@@ -327,6 +354,7 @@ const TicketSection = () => {
       <div className="ticket-container">
         
         <img src="/logo.png" alt="Girls Who Yap" className="site-logo" style={{ borderRadius: '50%' }}/>
+        
         {/* LANDING VIEW */}
         {view === 'landing' && (
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="ticket-card">
@@ -367,7 +395,7 @@ const TicketSection = () => {
           </motion.div>
         )}
 
-        {/* FORM VIEW (SPLIT) */}
+        {/* FORM VIEW */}
         {view === 'form' && (
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="ticket-card wide-form">
             <h2>Secure Your Free Pass</h2> 
@@ -375,7 +403,6 @@ const TicketSection = () => {
             <form onSubmit={handleSubmit}>
               
               <div className="form-split-layout">
-                {/* LEFT COLUMN */}
                 <div className="form-column">
                   <div className="form-group">
                     <label>Name</label>
@@ -391,7 +418,6 @@ const TicketSection = () => {
                   </div>
                 </div>
 
-                {/* RIGHT COLUMN */}
                 <div className="form-column">
                   <div className="form-group">
                     <label>Company/University Name</label>
@@ -422,7 +448,6 @@ const TicketSection = () => {
                 </div>
               </div>
 
-              {/* PHOTO (Middle) */}
               <div className="photo-section">
                 <div className="form-group">
                   <label>Photo</label>
@@ -463,34 +488,47 @@ const TicketSection = () => {
               Welcome to the <span className="highlight-text">"GWY Pre-Conference Global Experience"</span>
             </p>
             
+            {/* DYNAMIC TICKET VISUAL */}
             <div className="ticket-visual" style={{
-              '--avatar-x': `${TICKET_CONFIG.avatar.x}%`,
-              '--avatar-y': `${TICKET_CONFIG.avatar.y}%`,
-              '--avatar-size': `${TICKET_CONFIG.avatar.size}%`,
-              '--seat-x': `${TICKET_CONFIG.seat.x}%`,
-              '--seat-y': `${TICKET_CONFIG.seat.y}%`,
-              '--seat-w': `${TICKET_CONFIG.seat.w}%`,
-              '--seat-h': `${TICKET_CONFIG.seat.h}%`,
-              '--seat-rot': `${TICKET_CONFIG.seat.rotation}deg`,
-              '--row-x': `${TICKET_CONFIG.row.x}%`,
-              '--row-y': `${TICKET_CONFIG.row.y}%`,
-              '--row-w': `${TICKET_CONFIG.row.w}%`,
-              '--row-h': `${TICKET_CONFIG.row.h}%`,
-              '--row-rot': `${TICKET_CONFIG.row.rotation}deg`,
-              '--qr-x': `${TICKET_CONFIG.qr.x}%`,
-              '--qr-y': `${TICKET_CONFIG.qr.y}%`,
-              '--qr-rot': `${TICKET_CONFIG.qr.rotation}deg`,
+              '--avatar-x': `${activeConfig.avatar.x}%`,
+              '--avatar-y': `${activeConfig.avatar.y}%`,
+              '--avatar-size': `${activeConfig.avatar.size}%`,
+              
+              '--seat-x': `${activeConfig.seat.x}%`,
+              '--seat-y': `${activeConfig.seat.y}%`,
+              '--seat-w': `${activeConfig.seat.w}%`,
+              '--seat-h': `${activeConfig.seat.h}%`,
+              '--seat-rot': `${activeConfig.seat.rotation}deg`,
+              
+              '--row-x': `${activeConfig.row.x}%`,
+              '--row-y': `${activeConfig.row.y}%`,
+              '--row-w': `${activeConfig.row.w}%`,
+              '--row-h': `${activeConfig.row.h}%`,
+              '--row-rot': `${activeConfig.row.rotation}deg`,
+              
+              '--qr-x': `${activeConfig.qr.x}%`,
+              '--qr-y': `${activeConfig.qr.y}%`,
+              '--qr-rot': `${activeConfig.qr.rotation}deg`,
             }}>
               <img src="/ticket-bg.png" alt="Ticket" className="ticket-bg-img" />
               <div className="ticket-avatar-container">
                 <img src={ticketData.avatar_url || "./default-avatar.png"} alt="User" />
               </div>
+              
+              {/* SEAT */}
               <div className="info-block seat-block">
-                <span className="stub-value">{ticketData.seat_number}</span>
+                <span className="stub-value" style={{ fontSize: `${activeConfig.seat.fontSize}rem` }}>
+                  {ticketData.seat_number}
+                </span>
               </div>
+              
+              {/* ROW */}
               <div className="info-block row-block">
-                <span className="stub-value">{ticketData.row_number}</span>
+                <span className="stub-value" style={{ fontSize: `${activeConfig.row.fontSize}rem` }}>
+                  {ticketData.row_number}
+                </span>
               </div>
+              
               <div className="qr-block">
                 <div className="patch-yellow"></div>
                 <img src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=GWY-${ticketData.email}`} alt="QR" />
@@ -501,7 +539,6 @@ const TicketSection = () => {
               <Download size={20} /> Download Ticket
             </button>
 
-            {/* NEW FOOTER & SHARING */}
             <div className="social-share-section">
               <p>Share your attendance by tagging us !!</p>
               <div className="social-icons">
