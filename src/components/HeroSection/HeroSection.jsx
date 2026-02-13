@@ -55,7 +55,7 @@ function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-          >
+          ><br></br>
             <img src="/logo2.svg" alt="Girls Who Yap" className={styles.mainLogo} />
             <span className={styles.preConferenceTitle}>pre conference</span>
           </motion.div>

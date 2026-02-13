@@ -38,7 +38,7 @@ function Navbar() {
   return (
     <nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}>
       <div className={styles.container}>
-        <div className={styles.logo}>
+        <div className={styles.logo} onClick={() => handleNavClick('about')}>
           <img src="/logo2.svg" alt="GirlsWhoYap" />
         </div>
         

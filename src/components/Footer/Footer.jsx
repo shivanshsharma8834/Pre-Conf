@@ -13,7 +13,7 @@ function Footer() {
               Virtual meetings, and conferences, 
               anyone can share, join or host (virtual events).
             </p>
-            <button className={styles.ctaButton}>+ New event</button>
+            {/* <button className={styles.ctaButton}>+ New event</button> */}
           </div>
 
           {/* Right: Link Columns */}
