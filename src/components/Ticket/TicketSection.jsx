@@ -1,13 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Upload, Download, Loader2, Linkedin, Instagram, Twitter, Check } from 'lucide-react';
-import { supabase } from '../../supabaseClient';
+import { supabase } from '../../supabaseClient'; 
 import imageCompression from 'browser-image-compression';
+import { Turnstile } from '@marsidev/react-turnstile'; 
 import './TicketSection.css'; 
 
 // --- CONFIGURATION ---
-
-// 1. Desktop / Standard Config (High Res)
 const TICKET_CONFIG = {
   avatar: { x: 64.6, y: 50.6, size: 101.1 },
   seat: { x: 93.1, y: 23.1, w: 5.9, h: 17.8, rotation: -90.0, fontSize: 2.2 },
@@ -15,12 +14,11 @@ const TICKET_CONFIG = {
   qr: { x: 88.6, y: 74.3, size: 25.3, rotation: 0.0 }
 };
 
-// 2. Mobile Config (Optimized for small screens based on your values)
 const MOBILE_TICKET_CONFIG = {
-  avatar: { x: 64.6, y: 50.6, size: 101.1 }, // Same as desktop
-  seat: { x: 92.8, y: 20.2, w: 4.5, h: 12, rotation: -90.0, fontSize: 0.8 }, // YOUR VALUES
-  row: { x: 93.4, y: 46.2, w: 6, h: 16.1, rotation: -90.0, fontSize: 0.8 },  // YOUR VALUES
-  qr: { x: 88.6, y: 74.3, size: 25.3, rotation: 0.0 } // Same as desktop
+  avatar: { x: 64.6, y: 50.6, size: 101.1 },
+  seat: { x: 92.8, y: 20.2, w: 4.5, h: 12, rotation: -90.0, fontSize: 0.8 },
+  row: { x: 93.4, y: 46.2, w: 6, h: 16.1, rotation: -90.0, fontSize: 0.8 },
+  qr: { x: 88.6, y: 74.3, size: 25.3, rotation: 0.0 }
 };
 
 const SHARE_CAPTION = `I just said yes to
@@ -33,6 +31,9 @@ but also to feel that spark you only get when the right people gather in one pla
 See you inside
 #GWYConf #GirlsWhoYap #PreConfGlobalExperience`;
 
+// UPDATED: Now using Environment Variable
+const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY;
+
 const TicketSection = () => {
   const [view, setView] = useState('landing'); 
   const [loading, setLoading] = useState(false);
@@ -40,7 +41,9 @@ const TicketSection = () => {
   const [ticketData, setTicketData] = useState(null);
   const [copyFeedback, setCopyFeedback] = useState('');
   
-  // State to track screen size
+  // CAPTCHA State
+  const [captchaToken, setCaptchaToken] = useState(null);
+
   const [isMobile, setIsMobile] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -56,20 +59,13 @@ const TicketSection = () => {
 
   const canvasRef = useRef(null);
 
-  // Detect Mobile Screen on Mount & Resize
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 600);
-    };
-    
-    // Run once on mount
+    const handleResize = () => setIsMobile(window.innerWidth < 600);
     handleResize();
-
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Select the active config based on screen size
   const activeConfig = isMobile ? MOBILE_TICKET_CONFIG : TICKET_CONFIG;
 
   const handleInputChange = (e) => {
@@ -161,7 +157,15 @@ const TicketSection = () => {
     setLoading(true);
     setError('');
 
+    // CHECK CAPTCHA BEFORE PROCEEDING
+    if (!captchaToken) {
+      setError("Please complete the security check.");
+      setLoading(false);
+      return;
+    }
+
     try {
+      // 1. Check if user already exists (Standard client-side check)
       const { data: existing } = await supabase
         .from('tickets')
         .select('id')
@@ -174,6 +178,7 @@ const TicketSection = () => {
         return;
       }
 
+      // 2. Upload Image (Standard client-side upload)
       let avatarUrl = '';
       if (formData.image) {
         let fileToUpload = formData.image;
@@ -208,7 +213,7 @@ const TicketSection = () => {
       const row = Math.floor(Math.random() * 50) + 1;
       const seat = Math.floor(Math.random() * 100) + 1;
 
-      const newTicket = {
+      const newTicketPayload = {
         name: formData.name,
         email: formData.email,
         country: formData.country,
@@ -220,21 +225,24 @@ const TicketSection = () => {
         seat_number: seat.toString().padStart(2, '0')
       };
 
-      const { data, error: insertError } = await supabase
-        .from('tickets')
-        .insert([newTicket])
-        .select();
+      // 3. SECURE INSERT via Edge Function
+      const { data, error: functionError } = await supabase.functions.invoke('swift-action', {
+        body: { 
+          ticketData: newTicketPayload,
+          captchaToken: captchaToken 
+        }
+      });
 
-      if (insertError) throw insertError;
+      if (functionError) throw new Error(functionError.message || "Failed to create ticket");
+      if (data?.error) throw new Error(data.error);
 
-      const finalTicketData = (data && data.length > 0) ? data[0] : newTicket;
-
-      setTicketData(finalTicketData);
+      // Success
+      setTicketData(data.data);
       setView('ticket');
 
     } catch (err) {
       console.error(err);
-      setError("Registration failed. Please try again.");
+      setError("Registration failed. " + err.message);
     } finally {
       setLoading(false);
     }
@@ -268,8 +276,6 @@ const TicketSection = () => {
       }
 
       function drawAvatar(avatarImg) {
-        // NOTE: We always use TICKET_CONFIG (Desktop) for downloads 
-        // to ensure high resolution and correct aspect ratio on the saved image.
         const { x, y, size } = TICKET_CONFIG.avatar;
         const centerX = w * (x / 100);
         const centerY = h * (y / 100);
@@ -313,7 +319,6 @@ const TicketSection = () => {
           ctx.restore();
         };
 
-        // Always use TICKET_CONFIG for downloads
         drawBox(TICKET_CONFIG.seat, ticketData.seat_number);
         drawBox(TICKET_CONFIG.row, ticketData.row_number);
 
@@ -465,6 +470,15 @@ const TicketSection = () => {
                     </label>
                   </div>
                 </div>
+              </div>
+              
+              {/* CAPTCHA SECTION */}
+              <div className="form-group" style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
+                <Turnstile 
+                  siteKey={TURNSTILE_SITE_KEY} 
+                  onSuccess={setCaptchaToken}
+                  onError={() => setError("CAPTCHA failed to load.")}
+                />
               </div>
 
               {error && <p className="error-msg">{error}</p>}
