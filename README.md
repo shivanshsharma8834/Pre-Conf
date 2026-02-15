@@ -28,15 +28,28 @@ npm run build
 npm run preview
 ```
 
-## Hero Section Fixed
+## 🛠️ How to Contribute (Let’s Keep It Healthy)
 
-The hero section now matches the reference design exactly:
-- ✅ Title "GIRLSWHOYAP CONFERENCE" at the top (split color: black + mint)
-- ✅ Small description box on top right
-- ✅ Crowd illustration as background banner (500px height, contained)
-- ✅ White event card overlaying the left side of the banner
-- ✅ Red "NEW!!!" circular badge in the center
-- ✅ "Remind me" and participant count at bottom right
-- ✅ CTA section with buttons below the banner
+To make sure contributions stay structured and collaborative, please follow this process:
 
-The image is no longer huge and bleeding into other sections. It's now a fixed 500px height background with content properly overlaying it!
+### Step 1: Create an Issue
+Before making any changes, raise an Issue in the repository describing:
+- What you want to change / improve
+- Why you think this change is needed
+- How you plan to implement it (approach or solution)
+- Screenshots / references (if applicable)
+
+### Step 2: Get Assigned
+- Wait for the issue to be reviewed and assigned to you.
+- This helps us avoid duplicate work across global contributors.
+
+### Step 3: Fork the Repository
+- Create your own fork and start working on the assigned issue.
+
+### Step 4: Submit a Pull Request
+Once done, raise a PR clearly mentioning:
+- The issue number
+- Summary of changes made
+- Before / After screenshots (if UI-related)
+
+Our team will review and merge accordingly.
